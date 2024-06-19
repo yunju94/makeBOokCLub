@@ -1,10 +1,16 @@
 package com.make.bookclub.controller;
 
+import com.make.bookclub.dto.MemberFormDto;
+import com.make.bookclub.entity.Member;
 import com.make.bookclub.service.Memberservice;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -15,9 +21,32 @@ public class MembersController {
     private  final PasswordEncoder passwordEncoder;
 
     @GetMapping("/new")
-    public String memberform(){
+    public String memberform(Model model){
+        model.addAttribute("memberFormDto", new MemberFormDto());
         return "/member/memberForm";
     }
+
+    @PostMapping(value = "/new")
+    public String memberForm(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()){
+           //만약에 error가 있다면, 회원가입창으로 돌려보냄.
+            return "member/memberForm";
+        }
+        //테이블에 넣어야함. 테이블에 넣는다. > entity_ createmembers
+        try{
+            Member member = Member.createMember(memberFormDto, passwordEncoder);
+            //entity와 repository에 넣어야함.
+            // service >repository > savemember -> (유효성 검사)validate -> savemember -> resitory.save
+            memberservice.saveMember(member);
+
+        }catch (IllegalStateException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "member/memberForm";
+        }
+
+        return "redirect:/"; //error가 없다면 main으로 돌려보냄
+    }
+
     @GetMapping("/login")
     public String memberlogin(){
         return "/member/memberLoginForm";

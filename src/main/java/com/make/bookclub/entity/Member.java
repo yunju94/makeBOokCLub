@@ -24,7 +24,7 @@ public class Member {
     private  String email;//이메일
     private  String password;//비밀번호
     @Column(unique = true)//중복 허용 안함
-    private  String nickname;//닉네임
+    private  String address;//닉네임
     private  String tel;//전화번호
     private Role role;//
 
@@ -32,7 +32,7 @@ public class Member {
         Member member = new Member();
         member.setName(memberFormDto.getName());
         member.setEmail(member.getEmail());
-        member.setNickname(memberFormDto.getNickname());
+        member.setAddress(memberFormDto.getAddress());
         String password = passwordEncoder.encode(memberFormDto.getPassword());
         member.setPassword(password);
         member.setTel(memberFormDto.getTel());
