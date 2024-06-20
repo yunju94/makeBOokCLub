@@ -3,10 +3,18 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout1}">
 
-<div layout:fragment="content">
 
-    <h1>메인 페이지 입니다.</h1>
+    <div layout:fragment="content">
+        <div id="carouselControls" class="carousel slide margin" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active item">
+                    <img src="https://stickershop.line-scdn.net/stickershop/v1/product/23765509/LINEStorePC/main.png?v=1"
 
-</div>
+                         class="d-block w-100 banner" alt="First slide">
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </html>
