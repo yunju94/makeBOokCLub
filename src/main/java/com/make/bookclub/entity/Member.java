@@ -23,15 +23,15 @@ public class Member {
     @Column(unique = true)//중복 허용 안함
     private  String email;//이메일
     private  String password;//비밀번호
+    private  String address;//주소
     @Column(unique = true)//중복 허용 안함
-    private  String address;//닉네임
     private  String tel;//전화번호
     private Role role;//
 
     public static  Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
         Member member = new Member();
         member.setName(memberFormDto.getName());
-        member.setEmail(member.getEmail());
+        member.setEmail(memberFormDto.getEmail());
         member.setAddress(memberFormDto.getAddress());
         String password = passwordEncoder.encode(memberFormDto.getPassword());
         member.setPassword(password);

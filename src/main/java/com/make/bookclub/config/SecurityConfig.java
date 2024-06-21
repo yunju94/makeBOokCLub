@@ -23,6 +23,11 @@ public class SecurityConfig {
                 .requestMatchers("/", "/members/**", "/item/**", "/images/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
+        ).formLogin(formLogin -> formLogin
+                .loginPage("/members/login")
+                .defaultSuccessUrl("/")
+                .usernameParameter("email")
+                .failureUrl("/members/login/error")
         );
 
         return  http.build();

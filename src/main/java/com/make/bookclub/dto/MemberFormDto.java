@@ -20,7 +20,7 @@ public class MemberFormDto {
     private  String address;
 
     @NotEmpty(message = "비밀번호는 필수 입력값입니다.")
-    @Length(min = 4, max = 20)
+    @Length(min = 4, max = 20 , message = "비밀번호는 4자 이상, 20자 이하로만 입력해주세요.")
     private  String password;
 
     private  String tel;

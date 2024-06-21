@@ -52,4 +52,24 @@ public class MembersController {
         return "/member/memberLoginForm";
     }
 
+    @GetMapping("/login/error")
+    public String memberloginerror(Model model){
+        model.addAttribute("logErrorMsg", "아이디나 비밀번호를 확인해주세요.");
+        return "/member/memberLoginForm";
+    }
+
+    @PostMapping("/login")
+    public String memberloginPass(@Valid MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
+        //자료를 받음.
+        // entity로 자료를 변경
+        Member member =Member.createMember(memberFormDto, passwordEncoder);
+
+        //entity를 repository로 가져가서 DB 저장
+        memberservice.saveMember(member);
+
+        return "redirect:/";
+    }
+
+
+
 }

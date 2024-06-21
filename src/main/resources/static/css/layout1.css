@@ -5,9 +5,28 @@
     text-align: center;
 
     }
+    .row mb-4{
+     margin: 0 auto;
+            width:50%;
+            text-align: center;
+    }
+
+    .input-group-text{
+        background-color: aquamarine;
+    }
+
+
+    .input-group{
+        margin: 0 auto;
+        width:50%;
+        text-align: center;
+
+        }
     form{
       text-align: center;
     }
+
+
     .footer{
     position: absolute;
     bottom: 0;

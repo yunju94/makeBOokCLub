@@ -1,6 +1,7 @@
 package com.make.bookclub.entity;
 
 import com.make.bookclub.constant.ItemSellStatus;
+import com.make.bookclub.dto.ItemFormDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,7 +36,10 @@ public class Item {
     @Enumerated(EnumType.STRING)
     private ItemSellStatus itemSellStatus;//상품 판매 상태
 
-    private LocalDateTime regTime; //등록 시간
+    private LocalDateTime regTime= LocalDateTime.now(); //등록 시간
 
-    private  LocalDateTime updateTime; // 수정 시간
+    private  LocalDateTime updateTime = LocalDateTime.now(); // 수정 시간
+
+
+
 }
