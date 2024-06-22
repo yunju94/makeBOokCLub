@@ -10,6 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,11 +29,14 @@ public class ItemController {
     }
 
     @PostMapping(value ="/admin/item/new")
-    public  String addItemPost(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, Model model){
+    public  String addItemPost(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, Model model,
+                               @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList){
         if (bindingResult.hasErrors()){
             //만약에 error가 있다면, 돌려보냄.
+            System.out.println("bindingResult");
             return "/item/itemForm";
         }
+        System.out.println("item   item");
         itemService.saveItem(itemFormDto);
         //오류가 없으면, 저장하러 itemservice로
 

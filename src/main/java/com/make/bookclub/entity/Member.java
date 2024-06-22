@@ -14,11 +14,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Getter
 @Setter
 @ToString
-public class Member {
+public class Member extends BaseEntity{
     @Id
     @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private  Long num; //회원번호
+    private  Long id; //회원번호
     private  String name; //이름
     @Column(unique = true)//중복 허용 안함
     private  String email;//이메일
@@ -26,6 +26,8 @@ public class Member {
     private  String address;//주소
     @Column(unique = true)//중복 허용 안함
     private  String tel;//전화번호
+
+    @Enumerated(EnumType.STRING)
     private Role role;//
 
     public static  Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
