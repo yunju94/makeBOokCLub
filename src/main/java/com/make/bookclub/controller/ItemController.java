@@ -31,15 +31,26 @@ public class ItemController {
     @PostMapping(value ="/admin/item/new")
     public  String addItemPost(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, Model model,
                                @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList){
+                                //이미지 파일을 불러내서 List에 넣음
         if (bindingResult.hasErrors()){
+            model.addAttribute("errorMessage", "bindingResult");
             //만약에 error가 있다면, 돌려보냄.
-            System.out.println("bindingResult");
             return "/item/itemForm";
         }
-        System.out.println("item   item");
-        itemService.saveItem(itemFormDto);
-        //오류가 없으면, 저장하러 itemservice로
 
+        if (itemImgFileList.get(0).isEmpty() && itemFormDto.getId() ==null){
+            model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값입니다.");
+            return "item/itemForm";
+        }
+
+        try{
+            itemService.saveItem(itemFormDto, itemImgFileList);
+
+        }catch (Exception e){
+            model.addAttribute("errorMessage", "싱품 등록 중 에러가 발생하였습니다.");
+            return "item/itemForm";
+
+        }
         return "redirect:/";
     }
 

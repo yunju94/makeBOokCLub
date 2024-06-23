@@ -50,7 +50,7 @@ public class ItemFormDto {
     }
 
     public  static  ItemFormDto of(Item item){
-        //item -> itemFormDto 연결
+        //Item -> ItemFormDto 연결
         return  modelMapper.map(item, ItemFormDto.class);
     }
 

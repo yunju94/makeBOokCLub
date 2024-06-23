@@ -14,7 +14,7 @@
         });
 
         function bindDomEvent(){
-            ${".imageFile.form.control"}.on("change", function(){
+            $(".imageFile.form.control").on("change", function(){
                 var fileName = $(this).val().split("\\").pop();
                 var fileExt = fileName.substring(fileName.lastIndexOf(".")+1);
                 fileExt = fileExt.toLowerCase();
@@ -96,7 +96,7 @@
             <div class="row" th:each="num: ${#numbers.sequence(1,5)}">
                 <div class="input-group mb3">
                     <label class="image input-group-text" th:text="상품이미지 + ${num}"></label>
-                    <input type="file" class=" imageFile form-control" name="itemImgFile">
+                    <input type="file" class="imageFile form-control" name="itemImgFile">
                 </div>
             </div>
         </div>
@@ -105,7 +105,7 @@
             <div class="row" th:each="itemImgDto, status: ${itemFormDto.itemImgDtoList}">
                 <div class="input-group mb3">
                     <label class="image input-group-text" th:text="${not #strings.isEmpty(itemImgDto.oriImgName)} ?
-                    ${itemImgDto.oriImgName} : '상품이미지'+ ${status.index+1}"></label>
+                    ${itemImgDto.oriImgName} : '상품이미지'+${status.index+1}"></label>
                     <input type="file" class="imageFile form-control" name="itemImgFile">
                     <input type="hidden" name="itemImgIds" th:value="${itemImgDto.id}">
                 </div>
