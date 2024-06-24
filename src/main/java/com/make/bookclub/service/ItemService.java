@@ -36,10 +36,8 @@ public class ItemService {
             itemImg.setItem(item);
             if (i==0){
                 itemImg.setRepImgYn("Y");
-                System.out.println("000000000");
             }else {
                 itemImg.setRepImgYn("N");
-                System.out.println("000000000000000000000000000000000");
             }itemImgService.saveItemImg(itemImg, itemImgFileList.get(i));
 
         }

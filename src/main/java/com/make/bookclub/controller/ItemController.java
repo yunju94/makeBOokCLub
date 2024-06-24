@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ItemController {
 
-    private ItemService itemService;
+    private final ItemService itemService;
 
     @GetMapping(value ="/admin/item/new")
     public String addItemForm(Model model){
@@ -37,19 +37,16 @@ public class ItemController {
             //만약에 error가 있다면, 돌려보냄.
             return "/item/itemForm";
         }
-
         if (itemImgFileList.get(0).isEmpty() && itemFormDto.getId() ==null){
             model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값입니다.");
             return "item/itemForm";
         }
-
         try{
             itemService.saveItem(itemFormDto, itemImgFileList);
 
         }catch (Exception e){
-            model.addAttribute("errorMessage", "싱품 등록 중 에러가 발생하였습니다.");
+            model.addAttribute("errorMessage", "상품 등록 중 에러가 발생하였습니다.");
             return "item/itemForm";
-
         }
         return "redirect:/";
     }
