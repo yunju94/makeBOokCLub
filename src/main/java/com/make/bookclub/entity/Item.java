@@ -1,6 +1,7 @@
 package com.make.bookclub.entity;
 
 import com.make.bookclub.constant.ItemSellStatus;
+import com.make.bookclub.dto.ItemFormDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,6 +50,14 @@ public class Item extends BaseEntity{
     )
     private List<Member> member;
 
+    public  void  updateItem(ItemFormDto itemFormDto){
+        this.itemNm = itemFormDto.getItemNm();
+        this.price = itemFormDto.getPrice();
+        this.stockNumber = itemFormDto.getStockNumber();
+        this.itemDetail = itemFormDto.getItemDetail();
+        this.itemSellStatus = itemFormDto.getItemSellStatus();
+
+    }
 
 
 }
