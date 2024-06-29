@@ -6,7 +6,9 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import java.util.List;
 
-public interface ItemRepository extends JpaRepository<Item, Long> , QuerydslPredicateExecutor<Item> {
+public interface ItemRepository extends JpaRepository<Item, Long>
+                                , QuerydslPredicateExecutor<Item>
+                                    , ItemRepositoryCustom{
     /*QuerydslPredicateExecutor
     Spring Data Jpa에 Querydsl을 사용하기 위해 제공되는 기능
     조인이 불가능
