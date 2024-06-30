@@ -3,6 +3,7 @@ package com.make.bookclub.service;
 import com.make.bookclub.dto.ItemFormDto;
 import com.make.bookclub.dto.ItemImgDto;
 import com.make.bookclub.dto.ItemSearchDto;
+import com.make.bookclub.dto.MainItemDto;
 import com.make.bookclub.entity.Item;
 import com.make.bookclub.entity.ItemImg;
 import com.make.bookclub.repository.ItemImgRepository;
@@ -90,6 +91,11 @@ public class ItemService {
     @Transactional(readOnly = true)
     public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable){
         return itemRepository.getAdminItemPage(itemSearchDto, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable){
+        return itemRepository.getMainItemPage(itemSearchDto, pageable);
     }
 
 

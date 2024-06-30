@@ -105,17 +105,25 @@ public class ItemController {
         return  "redirect:/";
 
     }
-        @GetMapping(value = {"/admin/items", "/admin/items/{page}"})
-        public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page")Optional<Integer> page, Model model) {
-            Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
-                                // 페이지 값이 있는가? 예=> page의 값 : 아니요 => 0, 페이지당 사이즈 5개
-            Page<Item> items = itemService.getAdminItemPage(itemSearchDto, pageable);
-            model.addAttribute("items", items);
-            model.addAttribute("itemSearchDto", itemSearchDto);
-            model.addAttribute("maxPage", 5);
-            return  "item/itemMng";
-        }
 
+
+    @GetMapping(value = {"/admin/items", "/admin/items/{page}"})
+    public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page")Optional<Integer> page, Model model) {
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
+        // 페이지 값이 있는가? 예=> page의 값 : 아니요 => 0, 페이지당 사이즈 5개
+        Page<Item> items = itemService.getAdminItemPage(itemSearchDto, pageable);
+        model.addAttribute("items", items);
+        model.addAttribute("itemSearchDto", itemSearchDto);
+        model.addAttribute("maxPage", 5);
+        return  "item/itemMng";
+    }
+
+    @GetMapping(value = "/item/{itemId}")
+    public String itemDtl(Model model, @PathVariable("itemId")Long itemId){
+        ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
+        model.addAttribute("item", itemFormDto);
+        return "item/itemDtl";
+    }
 
 
 }

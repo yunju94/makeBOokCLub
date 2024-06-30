@@ -2,8 +2,11 @@ package com.make.bookclub.repository;
 
 import com.make.bookclub.constant.ItemSellStatus;
 import com.make.bookclub.dto.ItemSearchDto;
+import com.make.bookclub.dto.MainItemDto;
+import com.make.bookclub.dto.QMainItemDto;
 import com.make.bookclub.entity.Item;
 import com.make.bookclub.entity.QItem;
+import com.make.bookclub.entity.QItemImg;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -79,6 +82,23 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
         return  new PageImpl<>(content, pageable, total);
     }
 
+    private BooleanExpression itemNmLike(String searchQuery){
+        return  StringUtils.isEmpty(searchQuery)? null : QItem.item.itemNm.like("%"+ searchQuery+"%");
+    }
+    @Override
+    public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+        QItem item = QItem.item;
+        QItemImg itemImg = QItemImg.itemImg;
+        //QMainItemDto @QueryPrijection을 허용하면 DTO로 바로 조회 가능
+        QueryResults<MainItemDto> results = queryFactory.select(new QMainItemDto(item.id, item.itemNm,
+                item.itemDetail, itemImg.imgUrl, item.price))
+                .from(itemImg).join(itemImg.item, item).where(itemImg.repImgYn.eq("Y"))//내부조인. 대표 이미지만 가져옴
+                .where(itemNmLike(itemSearchDto.getSearchQuery()))
+                .orderBy(item.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
+        List<MainItemDto> content = results.getResults();
+        long total = results.getTotal();
+        return new PageImpl<>(content, pageable, total);
+    }
 
 
 }
